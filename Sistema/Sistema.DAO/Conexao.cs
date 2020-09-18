@@ -12,14 +12,14 @@ namespace Sistema.DAO
     class Conexao
     {
 
-        string string_conexao = @"Data Source=SMC-10-26-5525\SQLEXPRESS;Initial Catalog=bancomvc;Integrated Security=True";
-        string string_conexao2 = @"Data Source=DESKTOP-C0L5C87;Initial Catalog=bancomcv;Integrated Security=True";
+        string string_conexao = @"Data Source=SMC-10-26-5525\SQLEXPRESS;Initial Catalog=bancomvc;Integrated Security=True"; //pc hospital
+        string string_conexao2 = @"Data Source=DESKTOP-C0L5C87;Initial Catalog=bancomcv;Integrated Security=True";//notebook
         private SqlConnection _conexao = null;
 
         public Conexao()
         {
             this._conexao = new SqlConnection();
-            this._conexao.ConnectionString = string_conexao2;
+            this._conexao.ConnectionString = string_conexao;
         }
 
         public SqlConnection Conectar()

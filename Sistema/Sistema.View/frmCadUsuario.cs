@@ -34,6 +34,8 @@ namespace Sistema.View
                 case "Salvar":
                     try
                     {
+                        if(txtCodigo.Text!="")
+                            objTabela.Id = Convert.ToInt32(txtCodigo.Text);
                         objTabela.Nome = txtNome.Text;
                         objTabela.Usuario = txtUsuario.Text;
                         objTabela.Senha = txtSenha.Text;
@@ -41,8 +43,15 @@ namespace Sistema.View
                         int x = UsuarioModel.Inserir(objTabela);
                         if (x > 0)
                         {
-                            MessageBox.Show(String.Format("Usuário \"{0}\" foi inserido!", txtNome.Text));
-                            DesabilitarCampos();
+                            if (txtCodigo.Text == "")
+                            {
+                                MessageBox.Show("Usuário Gravado com Sucesso!");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Usuário Alterado com Sucesso!");
+                            }
+                                DesabilitarCampos();
                             Carregagrid();
                         }
                         else
@@ -83,9 +92,21 @@ namespace Sistema.View
 
         private void LimparCampos()
         {
+            txtCodigo.Text = "";
             txtNome.Text = "";
             txtUsuario.Text = "";
             txtSenha.Text = "";
+        }
+
+        private void Inicio()
+        {
+            DesabilitarCampos();
+            LimparCampos();
+            Carregagrid();
+            btnNovo.Enabled = true;
+            btnSalvar.Enabled = false;
+            btnEditar.Enabled = false;
+            btnExcluir.Enabled = false;
         }
 
 
@@ -93,6 +114,9 @@ namespace Sistema.View
         private void btnNovo_Click(object sender, EventArgs e)
         {
             Opcoes("Novo");
+            btnNovo.Enabled = false;
+            btnExcluir.Enabled = false;
+            btnEditar.Enabled = false;
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
@@ -108,10 +132,14 @@ namespace Sistema.View
         private void btnEditar_Click(object sender, EventArgs e)
         {
             Opcoes("Editar");
+            btnNovo.Enabled = true;
+            btnExcluir.Enabled = false;
+            btnEditar.Enabled = false;
         }
 
         private void Carregagrid()
         {
+            dgv_listaUsuarios.DataSource = null;
             try
             {
                 List<Tb_Usuario> lista = new List<Tb_Usuario>();
@@ -127,7 +155,27 @@ namespace Sistema.View
 
         private void frmCadUsuario_Load(object sender, EventArgs e)
         {
-            Carregagrid();
+            Inicio();
+        }
+
+        private void dgv_listaUsuarios_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+                txtCodigo.Text = dgv_listaUsuarios.CurrentRow.Cells[0].Value.ToString();
+                txtNome.Text = dgv_listaUsuarios.CurrentRow.Cells[1].Value.ToString();
+                txtUsuario.Text = dgv_listaUsuarios.CurrentRow.Cells[2].Value.ToString();
+                txtSenha.Text = dgv_listaUsuarios.CurrentRow.Cells[3].Value.ToString();
+                btnNovo.Enabled = false;
+                btnEditar.Enabled = true;
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            Inicio();
+        }
+
+        private void dgv_listaUsuarios_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

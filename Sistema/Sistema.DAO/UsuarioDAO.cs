@@ -17,7 +17,15 @@ namespace Sistema.DAO
             SqlCommand cmd = new SqlCommand();
             int result = -1;
 
-            cmd.CommandText = "INSERT INTO usuarios ([nome],[usuario],[senha]) VALUES (@nome, @usuario, @senha)";
+            if (objTabela.Id <=0)
+            {
+                cmd.CommandText = "INSERT INTO usuarios ([nome],[usuario],[senha]) VALUES (@nome, @usuario, @senha)";
+            }
+            else
+            {
+                cmd.CommandText = "Update usuarios set nome=@nome, usuario=@usuario, senha=@senha where id = @codigo";
+                cmd.Parameters.AddWithValue("@codigo", objTabela.Id);
+            }
 
             cmd.Parameters.AddWithValue("@nome", objTabela.Nome);
             cmd.Parameters.AddWithValue("@usuario", objTabela.Usuario);
