@@ -11,7 +11,7 @@ namespace Sistema.DAO
 {
     public class UsuarioDAO
     {
-        public int Inserir(Tb_Usuario objTabela)
+        public int Insere_Altera(Tb_Usuario objTabela)
         {
             Conexao con = new Conexao();
             SqlCommand cmd = new SqlCommand();
@@ -30,6 +30,31 @@ namespace Sistema.DAO
             cmd.Parameters.AddWithValue("@nome", objTabela.Nome);
             cmd.Parameters.AddWithValue("@usuario", objTabela.Usuario);
             cmd.Parameters.AddWithValue("@senha", objTabela.Senha);
+
+            try
+            {
+                cmd.Connection = con.Conectar();
+                result = cmd.ExecuteNonQuery();
+                con.Desconectar();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e);
+            }
+            return result;
+        }
+
+        public int Excluir(Tb_Usuario objTabela)
+        {
+            Conexao con = new Conexao();
+            SqlCommand cmd = new SqlCommand();
+            int result = -1;
+
+            if (objTabela.Id > 0)
+            {
+                cmd.CommandText = "Delete From usuarios where id = @codigo";
+                cmd.Parameters.AddWithValue("@codigo", objTabela.Id);
+            }
 
             try
             {

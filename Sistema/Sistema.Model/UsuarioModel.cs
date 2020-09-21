@@ -12,7 +12,7 @@ namespace Sistema.Model
     {
         public static int Inserir(Tb_Usuario objTabela)
         {
-            return new UsuarioDAO().Inserir(objTabela);
+            return new UsuarioDAO().Insere_Altera(objTabela);
         }
 
         public List<Tb_Usuario> Listar()
@@ -23,6 +23,11 @@ namespace Sistema.Model
         public Tb_Usuario Login(Tb_Usuario objTabela)
         {
             return new UsuarioDAO().PesquisaUsuario(objTabela);
+        }
+
+        public static int Excluir(Tb_Usuario objTabela)
+        {
+            return new UsuarioDAO().Excluir(objTabela);
         }
     }
 }
