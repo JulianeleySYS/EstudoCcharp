@@ -25,6 +25,7 @@ namespace Sistema.View
 
         private void LimparCampos()
         {
+            txtPesquisa.Text = "";
             txtCodigo.Text = "";
             txtNome.Text = "";
             txtUsuario.Text = "";
@@ -37,7 +38,7 @@ namespace Sistema.View
             try
             {
                 List<Tb_Usuario> lista = new List<Tb_Usuario>();
-                lista = new UsuarioModel().Listar();
+                lista = new UsuarioModel().Buscar();
                 dgv_listaUsuarios.AutoGenerateColumns = false;
                 dgv_listaUsuarios.DataSource = lista;
             }
@@ -62,6 +63,9 @@ namespace Sistema.View
             btnNovo.Enabled = true;
             btnSalvar.Enabled = false;
             btnEditar.Enabled = false;
+            txtPesquisa.Enabled = true;
+            txtPesquisa.Focus();
+            txtPesquisa.Select();
         }
 
         private void Opcoes(string op)
@@ -71,6 +75,8 @@ namespace Sistema.View
                 case "Novo":
                     LimparCampos();
                     HabilitarCampos();
+                    txtPesquisa.Enabled = false;
+                    txtNome.Focus();
                     objTabela.Id = 0;
                     break;
 
@@ -99,7 +105,7 @@ namespace Sistema.View
                         }
                         else
                         {
-                            MessageBox.Show("Não Inserido");
+                            MessageBox.Show("Não foi possível cadastrar este Usuário, \nverifique os Campos se por acaso estão Correto!");
                         }
                     }
                     catch (Exception ex)
@@ -141,10 +147,25 @@ namespace Sistema.View
                     HabilitarCampos();
                     break;
 
+                case "Buscar":
+                    dgv_listaUsuarios.DataSource = null;
+                    try
+                    {
+                        List<Tb_Usuario> lista = new List<Tb_Usuario>();
+                        lista = new UsuarioModel().Pesquisar(txtPesquisa.Text);
+                        dgv_listaUsuarios.AutoGenerateColumns = false;
+                        dgv_listaUsuarios.DataSource = lista;
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                    break;
+
             }
         }
 
-        
+
 
         private void DesabilitarCampos()
         {
@@ -163,8 +184,33 @@ namespace Sistema.View
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            Opcoes("Salvar");
-            Inicio();
+            if (txtNome.Text == "")
+            {
+                MessageBox.Show("É necessário preencher o Campo Nome!", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtNome.Focus();
+            }
+            else
+            {
+                if (txtUsuario.Text == "")
+                {
+                    MessageBox.Show("É necessário preencher o Campo Usuário!", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtUsuario.Focus();
+                }
+                else
+                {
+                    if (txtSenha.Text == "")
+                    {
+                        MessageBox.Show("É necessário preencher o Campo Senha!", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        txtSenha.Focus();
+                    }
+                    else
+                    {
+                        Opcoes("Salvar");
+                        Inicio();
+                    }
+                }
+            }
+
         }
 
 
@@ -176,8 +222,6 @@ namespace Sistema.View
             btnEditar.Enabled = false;
         }
 
-        
-
         private void frmCadUsuario_Load(object sender, EventArgs e)
         {
             Inicio();
@@ -185,6 +229,7 @@ namespace Sistema.View
 
         private void dgv_listaUsuarios_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            DesabilitarCampos();
             txtCodigo.Text = dgv_listaUsuarios.CurrentRow.Cells[0].Value.ToString();
             txtNome.Text = dgv_listaUsuarios.CurrentRow.Cells[1].Value.ToString();
             txtUsuario.Text = dgv_listaUsuarios.CurrentRow.Cells[2].Value.ToString();
@@ -205,6 +250,31 @@ namespace Sistema.View
             if (result == DialogResult.Yes)
             {
                 Opcoes("Excluir");
+            }
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            if (txtPesquisa.Text != "")
+            {
+                Opcoes("Buscar");
+            }
+            else
+            {
+                MessageBox.Show("Não Existe nenhum valor para realizar a Pesquisa");
+            }
+        }
+
+        private void txtPesquisa_TextChanged(object sender, EventArgs e)
+        {
+            if(txtPesquisa.Text == "")
+            {
+                Carregagrid();
+            }
+            else
+            {
+                Opcoes("Buscar");
+
             }
         }
     }

@@ -45,13 +45,15 @@
             this.txtCodigo = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.txtPesquisa = new System.Windows.Forms.TextBox();
+            this.btnBuscar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_listaUsuarios)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(35, 48);
+            this.label1.Location = new System.Drawing.Point(17, 63);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(38, 13);
             this.label1.TabIndex = 0;
@@ -60,7 +62,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(35, 77);
+            this.label2.Location = new System.Drawing.Point(17, 92);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 1;
@@ -69,7 +71,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(35, 105);
+            this.label3.Location = new System.Drawing.Point(17, 120);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 13);
             this.label3.TabIndex = 2;
@@ -78,7 +80,7 @@
             // txtNome
             // 
             this.txtNome.Enabled = false;
-            this.txtNome.Location = new System.Drawing.Point(92, 45);
+            this.txtNome.Location = new System.Drawing.Point(74, 60);
             this.txtNome.Name = "txtNome";
             this.txtNome.Size = new System.Drawing.Size(210, 20);
             this.txtNome.TabIndex = 3;
@@ -86,7 +88,7 @@
             // txtUsuario
             // 
             this.txtUsuario.Enabled = false;
-            this.txtUsuario.Location = new System.Drawing.Point(92, 74);
+            this.txtUsuario.Location = new System.Drawing.Point(74, 89);
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(99, 20);
             this.txtUsuario.TabIndex = 4;
@@ -94,7 +96,7 @@
             // txtSenha
             // 
             this.txtSenha.Enabled = false;
-            this.txtSenha.Location = new System.Drawing.Point(92, 102);
+            this.txtSenha.Location = new System.Drawing.Point(74, 117);
             this.txtSenha.Name = "txtSenha";
             this.txtSenha.PasswordChar = '*';
             this.txtSenha.Size = new System.Drawing.Size(99, 20);
@@ -102,7 +104,7 @@
             // 
             // btnNovo
             // 
-            this.btnNovo.Location = new System.Drawing.Point(95, 136);
+            this.btnNovo.Location = new System.Drawing.Point(95, 145);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(70, 23);
             this.btnNovo.TabIndex = 6;
@@ -112,7 +114,7 @@
             // 
             // btnSalvar
             // 
-            this.btnSalvar.Location = new System.Drawing.Point(165, 136);
+            this.btnSalvar.Location = new System.Drawing.Point(165, 145);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(70, 23);
             this.btnSalvar.TabIndex = 7;
@@ -122,7 +124,7 @@
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(235, 136);
+            this.btnEditar.Location = new System.Drawing.Point(235, 145);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(70, 23);
             this.btnEditar.TabIndex = 9;
@@ -186,7 +188,7 @@
             // txtCodigo
             // 
             this.txtCodigo.Enabled = false;
-            this.txtCodigo.Location = new System.Drawing.Point(92, 18);
+            this.txtCodigo.Location = new System.Drawing.Point(74, 33);
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.Size = new System.Drawing.Size(55, 20);
             this.txtCodigo.TabIndex = 12;
@@ -194,7 +196,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(35, 21);
+            this.label4.Location = new System.Drawing.Point(17, 36);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(43, 13);
             this.label4.TabIndex = 11;
@@ -202,7 +204,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(305, 136);
+            this.btnCancelar.Location = new System.Drawing.Point(305, 145);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(70, 23);
             this.btnCancelar.TabIndex = 13;
@@ -210,11 +212,32 @@
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
+            // txtPesquisa
+            // 
+            this.txtPesquisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPesquisa.Location = new System.Drawing.Point(179, 10);
+            this.txtPesquisa.Name = "txtPesquisa";
+            this.txtPesquisa.Size = new System.Drawing.Size(151, 22);
+            this.txtPesquisa.TabIndex = 15;
+            this.txtPesquisa.TextChanged += new System.EventHandler(this.txtPesquisa_TextChanged);
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Image = global::Sistema.View.Properties.Resources.search_icon_2;
+            this.btnBuscar.Location = new System.Drawing.Point(332, 7);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(43, 29);
+            this.btnBuscar.TabIndex = 16;
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
             // frmCadUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(387, 520);
+            this.Controls.Add(this.btnBuscar);
+            this.Controls.Add(this.txtPesquisa);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.txtCodigo);
             this.Controls.Add(this.label4);
@@ -256,5 +279,7 @@
         private System.Windows.Forms.TextBox txtCodigo;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.TextBox txtPesquisa;
+        private System.Windows.Forms.Button btnBuscar;
     }
 }

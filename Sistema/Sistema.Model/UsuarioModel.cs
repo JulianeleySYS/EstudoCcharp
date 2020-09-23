@@ -15,19 +15,24 @@ namespace Sistema.Model
             return new UsuarioDAO().Insere_Altera(objTabela);
         }
 
-        public List<Tb_Usuario> Listar()
+        public List<Tb_Usuario> Buscar()
         {
             return new UsuarioDAO().Listar();
         }
 
         public Tb_Usuario Login(Tb_Usuario objTabela)
         {
-            return new UsuarioDAO().PesquisaUsuario(objTabela);
+            return new UsuarioDAO().PesquisaUsuarioLogin(objTabela);
         }
 
         public static int Excluir(Tb_Usuario objTabela)
         {
             return new UsuarioDAO().Excluir(objTabela);
+        }
+
+        public List<Tb_Usuario> Pesquisar(string pesquisa)
+        {
+            return new UsuarioDAO().Pesquisar(pesquisa);
         }
     }
 }

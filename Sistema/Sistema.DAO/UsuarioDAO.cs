@@ -17,7 +17,7 @@ namespace Sistema.DAO
             SqlCommand cmd = new SqlCommand();
             int result = -1;
 
-            if (objTabela.Id <=0)
+            if (objTabela.Id <= 0)
             {
                 cmd.CommandText = "INSERT INTO usuarios ([nome],[usuario],[senha]) VALUES (@nome, @usuario, @senha)";
             }
@@ -42,6 +42,41 @@ namespace Sistema.DAO
                 Console.WriteLine(e);
             }
             return result;
+        }
+
+        public List<Tb_Usuario> Pesquisar(string pesquisa)
+        {
+            Conexao con = new Conexao();
+            SqlCommand cmd = new SqlCommand();
+
+            cmd.CommandText = "Select * From usuarios where nome like @nome";
+            cmd.Parameters.AddWithValue("@nome", pesquisa + "%"); 
+            List<Tb_Usuario> lista = new List<Tb_Usuario>();
+            SqlDataReader dr;
+            try
+            {
+                cmd.Connection = con.Conectar();
+                dr = cmd.ExecuteReader();
+                Tb_Usuario usuario;
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        usuario = new Tb_Usuario();
+                        usuario.Id = Convert.ToInt32(dr["id"]);
+                        usuario.Nome = Convert.ToString(dr["nome"]);
+                        usuario.Usuario = Convert.ToString(dr["usuario"]);
+                        usuario.Senha = Convert.ToString(dr["senha"]);
+                        lista.Add(usuario);
+                    }
+                }
+                con.Desconectar();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e);
+            }
+            return lista;
         }
 
         public int Excluir(Tb_Usuario objTabela)
@@ -69,7 +104,7 @@ namespace Sistema.DAO
             return result;
         }
 
-        public Tb_Usuario PesquisaUsuario(Tb_Usuario objTabela)
+        public Tb_Usuario PesquisaUsuarioLogin(Tb_Usuario objTabela)
         {
             Conexao con = new Conexao();
             SqlCommand cmd = new SqlCommand();
@@ -105,12 +140,39 @@ namespace Sistema.DAO
             return u;
         }
 
+        public int PesquisaUsuario(Tb_Usuario objTabela)
+        {
+            Conexao con = new Conexao();
+            SqlCommand cmd = new SqlCommand();
+
+            cmd.CommandText = "Select * From usuarios where usuario=@usuario";
+            cmd.Parameters.AddWithValue("@usuario", objTabela.Usuario);
+
+            SqlDataReader dr;
+            int result = -1;
+            try
+            {
+                cmd.Connection = con.Conectar();
+                dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    result = 1;
+                }
+                con.Desconectar();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e);
+            }
+            return result;
+        }
+
         public List<Tb_Usuario> Listar()
         {
             Conexao con = new Conexao();
             SqlCommand cmd = new SqlCommand();
 
-            cmd.CommandText = "Select * From usuarios order by id";
+            cmd.CommandText = "Select * From usuarios order by id desc";
             List<Tb_Usuario> lista = new List<Tb_Usuario>();
             SqlDataReader dr;
             try
